@@ -3,4 +3,5 @@
 git ch gh-pages
 git pull
 
-mv ./tmp/* .
+cp ./tmp/* .
+rm -rf ./tmp
