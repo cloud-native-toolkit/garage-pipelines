@@ -5,8 +5,6 @@ apiVersion: route.openshift.io/v1
 metadata:
   name: {{ $fullName }}
 spec:
-  host: >-
-    {{ include "starter-kit.host" . }}
   to:
     kind: Service
     name: {{ $fullName }}
