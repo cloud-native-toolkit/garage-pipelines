@@ -10,6 +10,6 @@ spec:
     name: {{ $fullName }}
     weight: 100
   tls:
-    termination: reencrypt
+    termination: edge
   wildcardPolicy: None
 {{- end }}
