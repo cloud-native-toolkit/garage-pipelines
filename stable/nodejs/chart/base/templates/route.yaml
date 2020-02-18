@@ -1,0 +1,19 @@
+{{- if eq .Values.clusterType "openshift" }}
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "starter-kit.fullname" . -}}
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: {{ $fullName }}
+spec:
+  host: >-
+    {{ include "starter-kit.host" . }}
+  to:
+    kind: Service
+    name: {{ $fullName }}
+    weight: 100
+  tls:
+    termination: reencrypt
+  wildcardPolicy: None
+{{- end }}
+{{- end }}

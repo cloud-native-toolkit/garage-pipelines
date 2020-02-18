@@ -19,6 +19,8 @@ service:
   type: ClusterIP
   port: 80
 
+clusterType: kubernetes
+
 ingress:
   enabled: true
   appid:
