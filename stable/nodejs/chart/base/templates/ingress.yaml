@@ -1,4 +1,3 @@
-{{- if ne .Values.clusterType "openshift" }}
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "starter-kit.fullname" . -}}
 {{- $namespace := .Release.Namespace -}}
@@ -31,5 +30,4 @@ spec:
             backend:
               serviceName: {{ $fullName }}
               servicePort: http
-{{- end }}
 {{- end }}
