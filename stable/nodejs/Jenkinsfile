@@ -176,7 +176,11 @@ spec:
 
                         npm i -g release-it
 
-                        release-it patch --ci --no-npm \
+                        if [[ "${BRANCH}" != "master" ]]; then
+                            PRE_RELEASE="--preRelease=${BRANCH}"
+                        fi
+
+                        release-it patch --ci --no-npm ${PRE_RELEASE} \
                           --git.push=false \
                           --git.tagName='v${version}' \
                           --hooks.after:git:release='git push origin v${version}' \
