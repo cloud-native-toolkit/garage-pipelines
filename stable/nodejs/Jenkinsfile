@@ -165,6 +165,7 @@ spec:
             stage('Tag release') {
                 withCredentials([usernamePassword(credentialsId: secretName, passwordVariable: 'GIT_AUTH_PWD', usernameVariable: 'GIT_AUTH_USER')]) {
                     sh '''#!/bin/bash
+                        set +x
 
                         git checkout ${BRANCH}
                         git branch --set-upstream-to=origin/${BRANCH} ${BRANCH}
@@ -175,7 +176,10 @@ spec:
 
                         npm i -g release-it
 
-                        release-it patch --ci --no-npm --git.tagName='v${version}' \
+                        release-it patch --ci --no-npm \
+                          --git.push=false \
+                          --git.tagName='v${version}' \
+                          --hooks.after:git:release='git push origin v${version}' \
                           --hooks.after:release='echo "IMAGE_VERSION=${version}" > ./env-config; echo "IMAGE_NAME=${repo.project}" >> ./env-config' \
                           --verbose
 
@@ -389,4 +393,3 @@ spec:
     }
     }
 }
-
