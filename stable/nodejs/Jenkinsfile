@@ -109,7 +109,6 @@ spec:
 """
 ) {
     node(buildLabel) {
-    try {
         container(name: 'node', shell: '/bin/bash') {
             checkout scm
             stage('Build') {
