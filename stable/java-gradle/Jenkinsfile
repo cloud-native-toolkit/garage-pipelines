@@ -165,8 +165,10 @@ spec:
             stage('Tag release') {
                 withCredentials([usernamePassword(credentialsId: secretName, passwordVariable: 'GIT_AUTH_PWD', usernameVariable: 'GIT_AUTH_USER')]) {
                     sh '''#!/bin/bash
-                        set +x
+                        set -x
+                        set -e
 
+                        git fetch origin ${BRANCH} --tags
                         git checkout ${BRANCH}
                         git branch --set-upstream-to=origin/${BRANCH} ${BRANCH}
 
@@ -176,16 +178,16 @@ spec:
 
                         mkdir -p ~/.npm
                         npm config set prefix ~/.npm
+                        export PATH=$PATH:~/.npm/bin
                         npm i -g release-it
 
                         if [[ "${BRANCH}" != "master" ]]; then
                             PRE_RELEASE="--preRelease=${BRANCH}"
                         fi
 
-                        npx release-it patch --ci --no-npm ${PRE_RELEASE} \
+                        release-it patch --ci --no-npm ${PRE_RELEASE} \
                           --git.push=false \
-                          --git.tagName='v${version}' \
-                          --hooks.after:git:release='git push origin v${version}' \
+                          --hooks.after:git:release='git push origin ${version}' \
                           --hooks.after:release='echo "IMAGE_VERSION=${version}" > ./env-config; echo "IMAGE_NAME=${repo.project}" >> ./env-config' \
                           --verbose
 
@@ -277,7 +279,7 @@ spec:
                     # sleep for 10 seconds to allow enough time for the server to start
                     sleep 30
 
-                    if [ $(curl -sL -w "%{http_code}\\n" "${URL}/health" -o /dev/null --connect-timeout 3 --max-time 5 --retry 3 --retry-max-time 30) == "200" ]; then
+                    if [[ $(curl -sL -w "%{http_code}\\n" "${URL}/health" -o /dev/null --connect-timeout 3 --max-time 5 --retry 3 --retry-max-time 30) == "200" ]]; then
                         echo "Successfully reached health endpoint: ${URL}/health"
                         echo "====================================================================="
                     else
