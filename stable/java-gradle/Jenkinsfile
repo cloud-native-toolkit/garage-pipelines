@@ -25,7 +25,7 @@ def removeNamespaceFromJobName(String jobName, String namespace) {
 }
 
 def buildSecretName(String jobNameWithNamespace, String namespace) {
-    return jobNameWithNamespace.replaceAll(namespace + "/", "").toLowerCase();
+    return jobNameWithNamespace.replaceAll(namespace + "/", "").replace(namespace + "-", "").replace(".", "-").toLowerCase();
 }
 
 def secretName = buildSecretName(env.JOB_NAME, env.NAMESPACE)
@@ -148,6 +148,13 @@ spec:
                 if [[ -z "${SONARQUBE_URL}" ]]; then
                   echo "Skipping Sonar Qube step as Sonar Qube not installed or configured"
                   exit 0
+                fi
+
+                if [[ ./gradlew tasks --all | grep -Eq "^sonarqube" ]]; then
+                    echo "SonarQube task found"
+                else
+                    echo "Skipping SonarQube step, no task defined"
+                    exit 0
                 fi
 
                 ./gradlew -Dsonar.login=${SONARQUBE_USER} -Dsonar.password=${SONARQUBE_PASSWORD} -Dsonar.host.url=${SONARQUBE_URL} sonarqube
