@@ -34,4 +34,16 @@ ingress:
   subdomain: containers.appdomain.cloud
   path: "/"
 
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+
+rbac:
+  # Specifies whether a psp should be created
+  create: false
+  ocpCreate: true
+  pspEnabled: false
+  sccEnabled: true
+
+
 #  tlsSecretName: ""
