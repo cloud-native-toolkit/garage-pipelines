@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-REPO_PATH="$1"
+PUBLISH_DIR="$1"
+REPO_PATH="$2"
+
+cd "${PUBLISH_DIR}"
 
 yq new name garage-pipelines > index.yaml
 find . -name "*.tar.gz" | while read -r file; do
