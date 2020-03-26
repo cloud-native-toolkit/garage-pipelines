@@ -41,9 +41,6 @@ serviceAccount:
 rbac:
   # Specifies whether a psp should be created
   create: false
-  ocpCreate: true
-  pspEnabled: false
-  sccEnabled: true
 
 
 #  tlsSecretName: ""
