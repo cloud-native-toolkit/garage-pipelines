@@ -23,10 +23,6 @@ spec:
       imagePullSecrets:
         - name: {{ .Values.image.secretName }}
       {{- end }}
-      serviceAccountName: {{ include "starter-kit.name" . }}
-      securityContext:
-        runAsUser: 1001
-        runAsNonRoot: true
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
