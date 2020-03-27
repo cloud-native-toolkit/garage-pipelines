@@ -1,5 +1,10 @@
 language: shell
-script: ./ci/build.sh $PUBLISH_DIR $REPO_URL
+before_install:
+ - sudo add-apt-repository ppa:rmescandon/yq -y
+ - sudo apt update
+ - sudo apt install yq -y
+script:
+ - ./ci/build.sh $PUBLISH_DIR $REPO_URL
 branches:
   only:
     - master
