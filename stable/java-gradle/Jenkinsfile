@@ -197,6 +197,7 @@ spec:
                     release-it patch ${PRE_RELEASE} \
                       --ci \
                       --no-npm \
+                      --no-git.requireCleanWorkingDir \
                       --verbose \
                       -VV
 
