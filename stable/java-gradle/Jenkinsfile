@@ -142,6 +142,13 @@ spec:
     node(buildLabel) {
         container(name: 'jdk11', shell: '/bin/bash') {
             checkout scm
+            stage('Setup') {
+                sh '''
+                    echo "IMAGE_NAME=$(basename -s .git `git config --get remote.origin.url` | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')" > ./env-config
+
+                    chmod a+rw ./env-config
+                '''
+            }
             stage('Build') {
                 sh '''
                     ./gradlew assemble --no-daemon
@@ -202,7 +209,6 @@ spec:
                       -VV
 
                     echo "IMAGE_VERSION=$(git describe --abbrev=0 --tags)" > ./env-config
-                    echo "IMAGE_NAME=$(basename -s .git `git config --get remote.origin.url` | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')" >> ./env-config
 
                     cat ./env-config
                 '''
