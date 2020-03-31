@@ -171,7 +171,7 @@ spec:
                   -Dsonar.login=${SONARQUBE_USER} \
                   -Dsonar.password=${SONARQUBE_PASSWORD} \
                   -Dsonar.host.url=${SONARQUBE_URL} \
-                  -Dsonar.projectName=${IMAGE_NAME} \
+                  -Psonar.projectName=${IMAGE_NAME} \
                   sonarqube
                 '''
             }
