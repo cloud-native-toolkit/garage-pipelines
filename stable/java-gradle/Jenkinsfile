@@ -142,6 +142,13 @@ spec:
     node(buildLabel) {
         container(name: 'jdk11', shell: '/bin/bash') {
             checkout scm
+            stage('Setup') {
+                sh '''
+                    echo "IMAGE_NAME=$(basename -s .git `git config --get remote.origin.url` | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')" > ./env-config
+
+                    chmod a+rw ./env-config
+                '''
+            }
             stage('Build') {
                 sh '''
                     ./gradlew assemble --no-daemon
@@ -201,8 +208,7 @@ spec:
                       --verbose \
                       -VV
 
-                    echo "IMAGE_VERSION=$(git describe --abbrev=0 --tags)" > ./env-config
-                    echo "IMAGE_NAME=$(basename -s .git `git config --get remote.origin.url` | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')" >> ./env-config
+                    echo "IMAGE_VERSION=$(git describe --abbrev=0 --tags)" >> ./env-config
 
                     cat ./env-config
                 '''
@@ -301,6 +307,28 @@ spec:
 
                 '''
             }
+        }
+        container(name: 'jdk11', shell: '/bin/bash') {
+            stage('Pact verify') {
+                sh '''#!/bin/bash
+                    if [[ -z "${PACTBROKER_URL}" ]]; then
+                      echo "PactBroker url not set. Skipping pact verification"
+                      exit 0
+                    fi
+
+                    set -x
+                    . ./env-config
+
+                    ./gradlew pactVerify \
+                      -PpactBrokerUrl=${PACTBROKER_URL} \
+                      -PpactProtocol=${PROTOCOL} \
+                      -PpactHost=${HOST} \
+                      -PpactPort=${PORT} \
+                      -Ppact.verifier.publishResults=true
+                '''
+            }
+        }
+        container(name: 'ibmcloud', shell: '/bin/bash') {
             stage('Package Helm Chart') {
                 sh '''#!/bin/bash
 
