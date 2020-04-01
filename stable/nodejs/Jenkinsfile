@@ -230,7 +230,7 @@ spec:
                 '''
             }
         }
-        container(name: 'ibmcloud', shell: '/bin/bash') {
+        container(name: 'buildah', shell: '/bin/bash') {
             stage('Build image') {
                 sh '''#!/bin/bash
                     set -e
