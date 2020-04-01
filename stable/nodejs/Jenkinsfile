@@ -112,6 +112,12 @@ spec:
         - name: REGISTRY_PASSWORD
           valueFrom:
             secretKeyRef:
+              key: REGISTRY_PASSWORD
+              name: ibmcloud-apikey
+              optional: true
+        - name: APIKEY
+          valueFrom:
+            secretKeyRef:
               key: APIKEY
               name: ibmcloud-apikey
               optional: true
@@ -146,7 +152,7 @@ spec:
         - name: ENVIRONMENT_NAME
           value: ${env.NAMESPACE}
     - name: trigger-cd
-      image: docker.io/garagecatalyst/ibmcloud-dev:1.0.8
+      image: docker.io/garagecatalyst/ibmcloud-dev:1.0.10
       tty: true
       command: ["/bin/bash"]
       workingDir: ${workingDir}
@@ -238,6 +244,10 @@ spec:
 
 		            echo TLSVERIFY=${TLSVERIFY}
 		            echo CONTEXT=${CONTEXT}
+
+		            if [[ -z "${REGISTRY_PASSWORD}" ]]; then
+		              REGISTRY_PASSWORD="${APIKEY}"
+		            fi
 
                     APP_IMAGE="${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}"
 
