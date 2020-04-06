@@ -161,7 +161,7 @@ spec:
           value: /home/devops
       envFrom:
         - configMapRef:
-            name: gitops-cd-secret
+            name: gitops-repo
             optional: true
         - secretRef:
             name: git-credentials
