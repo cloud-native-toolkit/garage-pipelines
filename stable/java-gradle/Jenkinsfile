@@ -92,12 +92,12 @@ spec:
         - name: GIT_AUTH_USER
           valueFrom:
             secretKeyRef:
-              name: ${secretName}
+              name: git-credentials
               key: username
         - name: GIT_AUTH_PWD
           valueFrom:
             secretKeyRef:
-              name: ${secretName}
+              name: git-credentials
               key: password
     - name: buildah
       image: quay.io/buildah/stable:v1.9.2
@@ -181,8 +181,11 @@ spec:
         - name: HOME
           value: /home/devops
       envFrom:
-        - secretRef:
+        - configMapRef:
             name: gitops-cd-secret
+            optional: true
+        - secretRef:
+            name: git-credentials
             optional: true
 """
 ) {
