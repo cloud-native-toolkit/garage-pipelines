@@ -258,7 +258,31 @@ spec:
                     buildah push --tls-verify=${TLSVERIFY} "${APP_IMAGE}" "docker://${APP_IMAGE}"
                 '''
             }
+
+              stage('VA Security Scan image') {
+                sh '''#!/bin/bash
+
+                    . ./env-config
+
+                    set +x
+
+                    echo -e "=========================================================================================="
+                    echo -e "Checking vulnerabilities in image: ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}"
+
+                        VA_FLAG=ibmcloud cr va ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION} --output json | grep OK
+
+                        if [[ -n "${VA_Flag}" ]]; then
+                            echo "No Issues"
+                        else 
+                            echo "Vulnerable Issues in the image" 
+                            ibmcloud cr va ${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}
+                            exit 1
+                        fi
+
+                '''
+            }
         }
+  
         container(name: 'ibmcloud', shell: '/bin/bash') {
             stage('Deploy to DEV env') {
                 sh '''#!/bin/bash
