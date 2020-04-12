@@ -166,6 +166,8 @@ spec:
           value: ${namespace}
         - name: BUILD_NUMBER
           value: ${env.BUILD_NUMBER}
+        - name: BRANCH
+          value: ${branch}
     - name: trigger-cd
       image: docker.io/garagecatalyst/ibmcloud-dev:1.0.10
       tty: true
@@ -236,6 +238,7 @@ spec:
 
                     echo "IMAGE_VERSION=$(git describe --abbrev=0 --tags)" > ./env-config
                     echo "IMAGE_NAME=$(basename -s .git `git config --get remote.origin.url` | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')" >> ./env-config
+                    echo "REPO_URL=$(git config --get remote.origin.url)" >> ./env-config
 
                     cat ./env-config
                 '''
@@ -247,8 +250,8 @@ spec:
                     set -e
                     . ./env-config
 
-		    echo TLSVERIFY=${TLSVERIFY}
-		    echo CONTEXT=${CONTEXT}
+		            echo TLSVERIFY=${TLSVERIFY}
+		            echo CONTEXT=${CONTEXT}
 
                     APP_IMAGE="${REGISTRY_URL}/${REGISTRY_NAMESPACE}/${IMAGE_NAME}:${IMAGE_VERSION}"
 
@@ -298,6 +301,8 @@ spec:
 
                     # Update helm chart with repository and tag values
                     cat ${CHART_PATH}/values.yaml | \
+                        yq w - vcsInfo.repoUrl "${REPO_URL}" | \
+                        yq w - vcsInfo.branch "${BRANCH}" | \
                         yq w - image.repository "${IMAGE_REPOSITORY}" | \
                         yq w - image.tag "${IMAGE_VERSION}" | \
                         yq w - ingress.enabled "${INGRESS_ENABLED}" | \
