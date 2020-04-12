@@ -44,3 +44,7 @@ rbac:
 
 
 #  tlsSecretName: ""
+
+vcsInfo:
+  repoUrl: ""
+  branch: ""
