@@ -177,7 +177,7 @@ spec:
             checkout scm
             stage('Build') {
                 sh '''#!/bin/bash
-                    npm install
+                    npm install --unsafe-perm
                     npm run build --if-present
                 '''
             }
