@@ -14,12 +14,9 @@ stages:
     if: branch != publish
   - index
     if: branch = publish
-branches:
-  all_branches: true
 env:
-  global:
-    PUBLISH_DIR: publish
-    REPO_URL: https://ibm-garage-cloud.github.io/garage-pipelines
+  - PUBLISH_DIR=publish
+  - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
 deploy:
 - provider: pages
   skip_cleanup: true
