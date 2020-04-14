@@ -34,7 +34,7 @@ deploy:
   - provider: pages
     cleanup: false
     github_token: $GITHUB_TOKEN
-    keep_history: true
+    keep_history: false
     target_branch: publish
     local_dir: publish/
     on:
