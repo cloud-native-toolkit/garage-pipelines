@@ -11,9 +11,11 @@ jobs:
      script: ./ci/index.sh ./ ${REPO_URL}
 stages:
   - package
-    if: ${TRAVIS_BRANCH} != publish
+    if: branch != publish
   - index
-    if: ${TRAVIS_BRANCH} = publish
+    if: branch = publish
+branches:
+  all_branches: true
 env:
   global:
     PUBLISH_DIR: publish
