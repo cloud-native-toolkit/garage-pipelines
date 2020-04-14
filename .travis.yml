@@ -7,32 +7,33 @@ jobs:
   include:
    - stage: package
      script: ./ci/package.sh $PUBLISH_DIR ${TRAVIS_BRANCH}
+     if: branch != publish
    - stage: index
      script: ./ci/index.sh ./ ${REPO_URL}
+     if: branch = publish
 stages:
   - package
-    if: branch != publish
   - index
-    if: branch = publish
 env:
-  - PUBLISH_DIR=publish
-  - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
+  global:
+    - PUBLISH_DIR=publish
+    - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
 deploy:
-- provider: pages
-  skip_cleanup: true
-  github_url: github.com
-  github_token: $GITHUB_TOKEN
-  keep_history: false
-  local_dir: ./
-  on:
-    branch: publish1
-- provider: pages
-  skip_cleanup: true
-  github_url: github.com
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  target_branch: publish
-  local_dir: $PUBLISH_DIR
-  on:
-    all_branches: true
-    condition: ${TRAVIS_BRANCH} != "publish"
+  - provider: pages
+    cleanup: false
+    github_url: github.com
+    github_token: $GITHUB_TOKEN
+    keep_history: false
+    local_dir: ./
+    on:
+      branch: publish1
+  - provider: pages
+    cleanup: false
+    github_url: github.com
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    target_branch: publish
+    local_dir: $PUBLISH_DIR
+    on:
+      all_branches: true
+      condition: ${TRAVIS_BRANCH} != "publish"
