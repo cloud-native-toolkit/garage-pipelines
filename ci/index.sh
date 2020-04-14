@@ -16,16 +16,18 @@ find . -name "*.tar.gz" | sort -r -V | while read -r file; do
 
   path=$(echo "${file}" | sed "s/^[.]\///g")
 
-  if [[ "$last_name" != "${name}" ]]; then
+  if [[ "$last_name" != "${branch}/${name}" ]]; then
     index=0
   else
     index=$((index+1))
   fi
 
   if [[ $index -eq 0 ]]; then
-    yq w -i index.yaml "pipelines.${name}.url" "${REPO_PATH}/${path}"
-    yq w -i index.yaml "pipelines.${name}.name" "${name}"
-    yq w -i index.yaml "pipelines.${name}.version" "${version}"
+    if [[ "${branch}" == "stable" ]]; then
+      yq w -i index.yaml "pipelines.${name}.url" "${REPO_PATH}/${path}"
+      yq w -i index.yaml "pipelines.${name}.name" "${name}"
+      yq w -i index.yaml "pipelines.${name}.version" "${version}"
+    fi
 
     yq w -i index.yaml "branches.${branch}.${name}[+].url" "${REPO_PATH}/${path}"
     yq w -i index.yaml "branches.${branch}.${name}[$index].name" "${name}"
@@ -38,5 +40,5 @@ find . -name "*.tar.gz" | sort -r -V | while read -r file; do
   yq w -i index.yaml "branches.${branch}.${name}[$index].name" "${name}"
   yq w -i index.yaml "branches.${branch}.${name}[$index].version" "${version}"
 
-  last_name=$name
+  last_name="${branch}/${name}"
 done
