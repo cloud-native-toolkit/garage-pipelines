@@ -6,7 +6,7 @@ before_install:
 jobs:
   include:
    - stage: package
-     script: ./ci/package.sh $PUBLISH_DIR ${TRAVIS_BRANCH}
+     script: ./ci/package.sh publish ${TRAVIS_BRANCH}
      if: branch != publish
    - stage: index
      script: ./ci/index.sh ./ ${REPO_URL}
@@ -33,11 +33,10 @@ deploy:
       branch: publish1
   - provider: pages
     cleanup: false
-    github_url: github.com
     github_token: $GITHUB_TOKEN
     keep_history: true
     target_branch: publish
-    local_dir: $PUBLISH_DIR
+    local_dir: publish/
     on:
       all_branches: true
       condition: ${TRAVIS_BRANCH} != "publish"
