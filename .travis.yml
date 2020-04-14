@@ -18,6 +18,10 @@ env:
   global:
     - PUBLISH_DIR=publish
     - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
+branches:
+  - master
+  - dev
+  - publish
 deploy:
   - provider: pages
     cleanup: false
