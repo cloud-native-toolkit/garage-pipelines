@@ -39,4 +39,6 @@ find "${BASE_DIR}/stable" -mindepth 1 -maxdepth 1 | while read -r path; do
   cd - > /dev/null
 done
 
+ls -l "${BASE_DIR}/${PUBLISH_DIR}/${BRANCH_NAME}"
+
 rm -rf ${TMP_DIR}
