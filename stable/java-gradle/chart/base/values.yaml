@@ -39,3 +39,5 @@ ingress:
 vcsInfo:
   repoUrl: ""
   branch: ""
+
+partOf: ""

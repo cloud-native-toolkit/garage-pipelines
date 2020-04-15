@@ -12,6 +12,9 @@ metadata:
     helm.sh/chart: {{ include "starter-kit.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app: {{ .Release.Name }}
+    {{- if .Values.partOf }}
+    app.kubernetes.io/part-of: {{ .Values.partOf }}
+    {{- end}}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
