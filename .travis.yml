@@ -18,6 +18,6 @@ deploy:
     verbose: true
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
-    keep_history: false
+    keep_history: true
     target_branch: publish
     local_dir: ${PUBLISH_DIR}
