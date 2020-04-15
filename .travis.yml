@@ -3,14 +3,16 @@ before_install:
  - sudo add-apt-repository ppa:rmescandon/yq -y
  - sudo apt update
  - sudo apt install yq -y
-script: ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
+script:
+  - ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
+  - cp ./build/* ${PUBLISH_DIR}
+  - cp -R ./ci ${PUBLISH_DIR}
 env:
   global:
     - PUBLISH_DIR=publish
 branches:
   - master
   - dev
-before_deploy: cp ./build/* ${PUBLISH_DIR} && cp -R ./ci ${PUBLISH_DIR}
 deploy:
   - provider: pages
     verbose: true
