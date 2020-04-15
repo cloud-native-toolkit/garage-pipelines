@@ -6,12 +6,13 @@ PUBLISH_DIR="$2"
 setup_git() {
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "Travis CI"
+
+  git fetch
+  git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 
 commit_website_files() {
-  git fetch origin "${TARGET_BRANCH}"
-  git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
-  cp -R "${PUBLISH_DIR}"/* .
+  cp -R "${PUBLISH_DIR}"/* . && rm -rf "${PUBLISH_DIR}"
   git add .
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
