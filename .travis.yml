@@ -5,7 +5,7 @@ before_install:
  - sudo apt install yq -y
 script:
   - ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
-  - cp ./build/* ${PUBLISH_DIR}
+  - cp build/.travis.yml ${PUBLISH_DIR}
   - cp -R ./ci ${PUBLISH_DIR}
 env:
   global:
