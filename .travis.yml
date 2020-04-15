@@ -14,5 +14,7 @@ deploy:
     skip_cleanup: true
     github_url: github.com
     github_token: $GITHUB_TOKEN
-    keep_history: false
+    keep_history: true
     local_dir: ./
+    on:
+      branch: publish
