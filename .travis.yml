@@ -1,0 +1,20 @@
+language: shell
+before_install:
+ - sudo add-apt-repository ppa:rmescandon/yq -y
+ - sudo apt update
+ - sudo apt install yq -y
+script: ./ci/index.sh ./ ${REPO_URL}
+env:
+  global:
+    - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
+branches:
+  - publish
+deploy:
+  - provider: pages
+    skip_cleanup: true
+    github_url: github.com
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    local_dir: ./
+    on:
+      branch: publish
