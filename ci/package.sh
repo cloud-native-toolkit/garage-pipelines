@@ -10,6 +10,8 @@ if [[ -z "${BRANCH_NAME}" ]] || [[ "${BRANCH_NAME}" == "master" ]]; then
   BRANCH_NAME="stable"
 fi
 
+echo "Packaging branch: ${BRANCH_NAME}"
+
 TMP_DIR="./tmp"
 mkdir -p $TMP_DIR
 
@@ -30,6 +32,7 @@ find "${BASE_DIR}/stable" -mindepth 1 -maxdepth 1 | while read -r path; do
 
   # update the helm chart version number
   yq w --inplace $(find "${TMP_PATH}" -name Chart.yaml) version "${version}"
+  yq w --inplace $(find "${TMP_PATH}" -name Chart.yaml) branch "${BRANCH_NAME}"
 
   mkdir -p "${BASE_DIR}/${PUBLISH_DIR}/${BRANCH_NAME}"
   cd "${TMP_PATH}"
@@ -39,6 +42,7 @@ find "${BASE_DIR}/stable" -mindepth 1 -maxdepth 1 | while read -r path; do
   cd - > /dev/null
 done
 
+ls -l "${BASE_DIR}/${PUBLISH_DIR}"
 ls -l "${BASE_DIR}/${PUBLISH_DIR}/${BRANCH_NAME}"
 
 rm -rf ${TMP_DIR}
