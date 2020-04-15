@@ -3,40 +3,20 @@ before_install:
  - sudo add-apt-repository ppa:rmescandon/yq -y
  - sudo apt update
  - sudo apt install yq -y
-jobs:
-  include:
-   - stage: package
-     script: ./ci/package.sh publish ${TRAVIS_BRANCH}
-     if: branch != publish
-   - stage: index
-     script: ./ci/index.sh ./ ${REPO_URL}
-     if: branch = publish
-stages:
-  - package
-  - index
+script: ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
 env:
   global:
     - PUBLISH_DIR=publish
     - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
 branches:
   - master
-  - dev
-  - publish
 deploy:
   - provider: pages
-    cleanup: false
-    github_url: github.com
-    github_token: $GITHUB_TOKEN
-    keep_history: false
-    local_dir: ./
-    on:
-      branch: publish1
-  - provider: pages
+    verbose: true
     cleanup: false
     github_token: $GITHUB_TOKEN
     keep_history: false
     target_branch: publish
-    local_dir: publish/
+    local_dir: ${PUBLISH_DIR}
     on:
-      all_branches: true
-      condition: ${TRAVIS_BRANCH} != "publish"
+      branch: master
