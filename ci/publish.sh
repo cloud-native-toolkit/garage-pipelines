@@ -7,7 +7,7 @@ setup_git() {
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "Travis CI"
 
-  git fetch
+  git fetch --unshallow
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 
