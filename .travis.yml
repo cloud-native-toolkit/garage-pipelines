@@ -13,7 +13,7 @@ branches:
 deploy:
   - provider: pages
     verbose: true
-    cleanup: false
+    skip_cleanup: true
     github_token: $GITHUB_TOKEN
     keep_history: false
     target_branch: publish
