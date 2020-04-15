@@ -9,6 +9,7 @@ setup_git() {
 }
 
 commit_website_files() {
+  git fetch origin "${TARGET_BRANCH}"
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
   cp -R "${PUBLISH_DIR}"/* .
   git add .
