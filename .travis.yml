@@ -9,17 +9,13 @@ script:
   - cp -R ./ci ${PUBLISH_DIR}
 env:
   global:
+    - PUBLISH_BRANCH=publish
     - PUBLISH_DIR=publish
 branches:
   - master
   - dev
 deploy:
-  - provider: pages
-    verbose: true
-    skip_cleanup: true
-    github_token: $GITHUB_TOKEN
-    keep_history: true
-    target_branch: publish
-    local_dir: ${PUBLISH_DIR}
+  - provider: script
+    script: ./ci/publish.sh ${PUBLISH_BRANCH} ${PUBLISH_DIR}
     on:
       all_branches: true
