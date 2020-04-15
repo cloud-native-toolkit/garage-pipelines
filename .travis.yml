@@ -7,16 +7,15 @@ script: ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
 env:
   global:
     - PUBLISH_DIR=publish
-    - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
 branches:
   - master
+  - dev
+before_deploy: cp ./ci/* ${PUBLISH_DIR}
 deploy:
   - provider: pages
     verbose: true
     skip_cleanup: true
     github_token: $GITHUB_TOKEN
-    keep_history: false
+    keep_history: true
     target_branch: publish
     local_dir: ${PUBLISH_DIR}
-    on:
-      branch: master
