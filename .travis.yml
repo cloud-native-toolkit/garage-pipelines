@@ -21,3 +21,5 @@ deploy:
     keep_history: true
     target_branch: publish
     local_dir: ${PUBLISH_DIR}
+    on:
+      all_branches: true
