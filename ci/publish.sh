@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+SCRIPT_PATH=$(cd $(dirname "$0"); pwd -P)
+
 TARGET_BRANCH="$1"
 PUBLISH_DIR="$2"
+REPO_URL="$3"
 
 setup_git() {
   git config --global user.email "travis@travis-ci.org"
@@ -11,8 +14,15 @@ setup_git() {
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 
-commit_website_files() {
+publish_content() {
   cp -R "${PUBLISH_DIR}"/* . && rm -rf "${PUBLISH_DIR}"
+}
+
+generate_index() {
+  "${SCRIPT_PATH}/index.sh" ./ "${REPO_URL}"
+}
+
+commit_website_files() {
   git add .
   git commit --message "Travis build: $TRAVIS_BUILD_NUMBER"
 }
@@ -24,5 +34,7 @@ upload_files() {
 }
 
 setup_git
+publish_content
+generate_index
 commit_website_files
 upload_files

@@ -7,15 +7,12 @@ script:
   - ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
   - cp build/.travis.yml ${PUBLISH_DIR}
   - cp -R ./ci ${PUBLISH_DIR}
+  - ./ci/publish.sh ${PUBLISH_BRANCH} ${PUBLISH_DIR} ${REPO_URL}
 env:
   global:
-    - PUBLISH_BRANCH=publish
+    - PUBLISH_BRANCH=gh-pages
     - PUBLISH_DIR=publish
+    - REPO_URL=https://ibm-garage-cloud.github.io/garage-pipelines
 branches:
   - master
   - dev
-deploy:
-  - provider: script
-    script: ./ci/publish.sh ${PUBLISH_BRANCH} ${PUBLISH_DIR}
-    on:
-      all_branches: true
