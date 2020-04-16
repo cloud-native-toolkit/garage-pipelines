@@ -48,30 +48,42 @@ branches:
       version: 1.0.0
   dev:
     nodejs:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/nodejs-1.0.0.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/nodejs-1.1.0.tar.gz
       name: nodejs
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/nodejs-1.1.0.tar.gz
+      name: nodejs
+      version: 1.1.0
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/nodejs-1.0.0.tar.gz
       name: nodejs
       version: 1.0.0
     java-maven:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-maven-1.0.0.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-maven-1.1.0.tar.gz
       name: java-maven
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-maven-1.1.0.tar.gz
+      name: java-maven
+      version: 1.1.0
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-maven-1.0.0.tar.gz
       name: java-maven
       version: 1.0.0
     java-gradle:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-gradle-1.0.0.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-gradle-1.1.0.tar.gz
       name: java-gradle
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-gradle-1.1.0.tar.gz
+      name: java-gradle
+      version: 1.1.0
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/java-gradle-1.0.0.tar.gz
       name: java-gradle
       version: 1.0.0
     appmod-liberty:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/appmod-liberty-1.0.0.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/appmod-liberty-1.1.0.tar.gz
       name: appmod-liberty
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/appmod-liberty-1.1.0.tar.gz
+      name: appmod-liberty
+      version: 1.1.0
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/dev/appmod-liberty-1.0.0.tar.gz
       name: appmod-liberty
       version: 1.0.0
