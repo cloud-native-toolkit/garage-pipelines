@@ -11,6 +11,7 @@ setup_git() {
   git config --global user.name "Travis CI"
 
   git fetch --unshallow
+  git fetch --all
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 
