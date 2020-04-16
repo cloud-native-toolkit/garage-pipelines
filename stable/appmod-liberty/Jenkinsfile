@@ -216,6 +216,10 @@ spec:
                     git checkout -b ${BRANCH} --track origin/${BRANCH}
                     git branch --set-upstream-to=origin/${BRANCH} ${BRANCH}
 
+                    git fetch
+                    git fetch --tags
+                    git tag -l
+
                     git config --global user.name "Jenkins Pipeline"
                     git config --global user.email "jenkins@ibmcloud.com"
 
