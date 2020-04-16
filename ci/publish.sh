@@ -12,7 +12,6 @@ setup_git() {
 
   set -x
   git remote -v
-  git fetch --unshallow origin gh-pages -v
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 
