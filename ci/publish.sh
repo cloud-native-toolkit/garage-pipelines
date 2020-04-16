@@ -12,7 +12,7 @@ setup_git() {
 
   set -x
   git remote -v
-  git fetch origin
+  git fetch origin --unshallow -v
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 
