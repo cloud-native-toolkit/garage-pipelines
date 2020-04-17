@@ -177,7 +177,7 @@ spec:
         - name: BRANCH
           value: ${branch}
     - name: trigger-cd
-      image: docker.io/garagecatalyst/ibmcloud-dev:1.0.8
+      image: docker.io/garagecatalyst/ibmcloud-dev:1.0.10
       tty: true
       command: ["/bin/bash"]
       workingDir: ${workingDir}
@@ -256,8 +256,10 @@ spec:
                     git fetch --tags
                     git tag -l
 
+                    COMMIT_HASH=$(git rev-parse HEAD)
                     git checkout -b ${BRANCH} --track origin/${BRANCH}
                     git branch --set-upstream-to=origin/${BRANCH} ${BRANCH}
+                    git reset --hard ${COMMIT_HASH}
 
                     git config --global user.name "Jenkins Pipeline"
                     git config --global user.email "jenkins@ibmcloud.com"
