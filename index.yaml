@@ -1,27 +1,30 @@
 version: v2
 pipelines:
   nodejs:
-    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/nodejs-1.1.3.tar.gz
+    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/nodejs-1.1.4.tar.gz
     name: nodejs
-    version: 1.1.3
+    version: 1.1.4
   java-maven:
-    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-maven-1.1.3.tar.gz
+    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-maven-1.1.4.tar.gz
     name: java-maven
-    version: 1.1.3
+    version: 1.1.4
   java-gradle:
-    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-gradle-1.1.3.tar.gz
+    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-gradle-1.1.4.tar.gz
     name: java-gradle
-    version: 1.1.3
+    version: 1.1.4
   appmod-liberty:
-    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.3.tar.gz
+    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.4.tar.gz
     name: appmod-liberty
-    version: 1.1.3
+    version: 1.1.4
 branches:
   stable:
     nodejs:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/nodejs-1.1.3.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/nodejs-1.1.4.tar.gz
       name: nodejs
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/nodejs-1.1.4.tar.gz
+      name: nodejs
+      version: 1.1.4
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/nodejs-1.1.3.tar.gz
       name: nodejs
       version: 1.1.3
@@ -29,9 +32,12 @@ branches:
       name: nodejs
       version: 1.0.0
     java-maven:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-maven-1.1.3.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-maven-1.1.4.tar.gz
       name: java-maven
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-maven-1.1.4.tar.gz
+      name: java-maven
+      version: 1.1.4
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-maven-1.1.3.tar.gz
       name: java-maven
       version: 1.1.3
@@ -39,9 +45,12 @@ branches:
       name: java-maven
       version: 1.0.0
     java-gradle:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-gradle-1.1.3.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-gradle-1.1.4.tar.gz
       name: java-gradle
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-gradle-1.1.4.tar.gz
+      name: java-gradle
+      version: 1.1.4
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/java-gradle-1.1.3.tar.gz
       name: java-gradle
       version: 1.1.3
@@ -49,9 +58,12 @@ branches:
       name: java-gradle
       version: 1.0.0
     appmod-liberty:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.3.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.4.tar.gz
       name: appmod-liberty
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.4.tar.gz
+      name: appmod-liberty
+      version: 1.1.4
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.3.tar.gz
       name: appmod-liberty
       version: 1.1.3
