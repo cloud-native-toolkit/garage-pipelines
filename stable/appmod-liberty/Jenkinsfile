@@ -178,6 +178,9 @@ spec:
           value: /home/devops
       envFrom:
         - configMapRef:
+            name: gitops-cd-secret
+            optional: true
+        - configMapRef:
             name: gitops-repo
             optional: true
         - secretRef:
