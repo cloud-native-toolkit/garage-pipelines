@@ -13,9 +13,9 @@ pipelines:
     name: java-gradle
     version: 1.1.4
   appmod-liberty:
-    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.4.tar.gz
+    url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.5.tar.gz
     name: appmod-liberty
-    version: 1.1.4
+    version: 1.1.5
 branches:
   stable:
     nodejs:
@@ -58,9 +58,12 @@ branches:
       name: java-gradle
       version: 1.0.0
     appmod-liberty:
-    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.4.tar.gz
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.5.tar.gz
       name: appmod-liberty
       version: latest
+    - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.5.tar.gz
+      name: appmod-liberty
+      version: 1.1.5
     - url: https://ibm-garage-cloud.github.io/garage-pipelines/stable/appmod-liberty-1.1.4.tar.gz
       name: appmod-liberty
       version: 1.1.4
