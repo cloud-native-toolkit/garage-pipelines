@@ -10,10 +10,10 @@ setup_git() {
   git config --global user.email "travis@travis-ci.org"
   git config --global user.name "Travis CI"
 
+  git remote set-url origin https://${GITHUB_TOKEN}@github.com/${TRAVIS_REPO_SLUG}
+
   set -x
   git remote -v
-  git fetch origin --unshallow -v
-  git fetch origin gh-pages --unshallow -v
   git checkout -b "${TARGET_BRANCH}" --track "origin/${TARGET_BRANCH}"
 }
 

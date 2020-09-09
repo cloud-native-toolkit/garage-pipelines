@@ -6,6 +6,8 @@ before_install:
 script:
   - ./ci/package.sh ${PUBLISH_DIR} ${TRAVIS_BRANCH}
   - ./ci/publish.sh ${PUBLISH_BRANCH} ${PUBLISH_DIR} ${REPO_URL}
+git:
+  depth: false
 env:
   global:
     - PUBLISH_BRANCH=gh-pages

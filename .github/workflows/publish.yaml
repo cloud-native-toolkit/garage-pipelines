@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  publish:
+
+    runs-on: ubuntu-latest
+
+    env:
+      PUBLISH_DIR: publish
+      PUBLISH_BRANCH: gh-pages
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Repo Path
+        run: |
+          repo=${{github.repository}}
+          echo "repo = $repo"
+          repo_org=${repo%/*}
+          echo "repo org = $repo_org"
+          repo_name=${repo#*/}
+          echo "repo name = $repo_name"
+          echo "::set-env name=REPO_PATH::https://$repo_org.github.io/$repo_name"
+      - name: Install dependencies
+        run: |
+          sudo add-apt-repository ppa:rmescandon/yq -y
+          sudo apt update
+          sudo apt install yq -y
+      - name: Package
+        run: ./ci/package.sh ${{ env.PUBLISH_DIR }} ${{ env.TRAVIS_BRANCH }}
+      - name: Build index
+        run: ./ci/index.sh ${{ env.PUBLISH_DIR }} ${{ env.REPO_PATH }}
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.PUBLISH_DIR }}
+          
