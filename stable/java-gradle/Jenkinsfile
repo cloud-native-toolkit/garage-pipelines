@@ -402,9 +402,15 @@ spec:
                     echo "PORT=${PORT}" >> ./env-config
 
                     URL="${PROTOCOL}://${HOST}"
+<<<<<<< HEAD
 
                     sleep_countdown=5
 
+=======
+
+                    sleep_countdown=5
+
+>>>>>>> 688f22cb7e587d24e1fc2a7533d3faaaceb1af4d
                     # sleep for 10 seconds to allow enough time for the server to start
                     sleep 10
                     echo "Health check start"
